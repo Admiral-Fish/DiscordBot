@@ -1,6 +1,6 @@
 import discord
 
-import env
+from env import getVariable
 from util import sendMessage
 
 async def fetchPCalc(message):
@@ -31,11 +31,11 @@ async def fixNTR(channel):
 
     await sendMessage(channel, "Fixing NTR", message)
 
-async def kickUser(author, user, reason):
-    if not any(role.id == env.MODROLE_ID for role in author.roles):
+async def kickUser(author, user, reason):    
+    if not any(role.id == int(getVariable("MODROLE_ID")) for role in author.roles):
         return False
 
-    if any(role.id == env.MODROLE_ID for role in user.roles):
+    if any(role.id == int(getVariable("MODROLE_ID")) for role in user.roles):
         return False
 
     await user.kick(reason=reason)
@@ -43,10 +43,10 @@ async def kickUser(author, user, reason):
     return True
     
 async def banUser(author, user, reason):
-    if not any(role.id == env.MODROLE_ID for role in author.roles):
+    if not any(role.id == int(getVariable("MODROLE_ID")) for role in author.roles):
         return False
 
-    if any(role.id == env.MODROLE_ID for role in user.roles):
+    if any(role.id == int(getVariable("MODROLE_ID")) for role in user.roles):
         return False
 
     await user.ban(reason=reason)

@@ -1,6 +1,11 @@
+from dotenv import load_dotenv
+
 from client import MyClient
-import env
+from env import getVariable
+
 
 if __name__ == "__main__":
+    load_dotenv()
+
     client = MyClient()
-    client.run(env.DISCORD_TOKEN)
+    client.run(getVariable("DISCORD_TOKEN"))

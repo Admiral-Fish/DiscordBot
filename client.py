@@ -3,7 +3,7 @@ import sys
 import subprocess
 
 from actions import fetchPCalc, installPCalc, grab3dsRNGTool, grabRNGReporter, grabPokeFinder, fixNTR, kickUser, banUser
-import env
+from env import getVariable
 from filter import filterMessage
 
 class MyClient(discord.Client):
@@ -30,8 +30,8 @@ class MyClient(discord.Client):
 
         await self.handleMessage(message)
 
-    async def logMessage(self, message):
-        channel = self.get_channel(env.LOGCHAN_ID)
+    async def logMessage(self, message):        
+        channel = self.get_channel(int(getVariable("LOGCHAN_ID")))
         await channel.send(message)
 
     async def handleMessage(self, message):
