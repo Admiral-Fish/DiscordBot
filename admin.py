@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from extensions import cogs
+import extensions
 from util import getEmbed
 
 class Admin(commands.Cog):
@@ -30,7 +30,7 @@ class Admin(commands.Cog):
 
     @commands.command()
     async def reload(self, ctx):
-        for cog in cogs:
+        for cog in extensions.cogs:
             try:
                 self.bot.unload_extension(cog)
                 self.bot.load_extension(cog)

@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 from env import EnvType, getVariable
-from extensions import cogs
+import extensions
 
 class FishBot(commands.Bot):
     def __init__(self):
@@ -21,7 +21,7 @@ class FishBot(commands.Bot):
         self.filter_words = getVariable("FILTER_WORDS", EnvType.STRING_LIST)
         self.filter_ignore_channels = getVariable("FILTER_IGNORE_CHANNELS", EnvType.INT_LIST)
 
-        for cog in cogs:
+        for cog in extensions.cogs:
             try:
                 self.load_extension(cog)
             except Exception as e:
