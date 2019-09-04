@@ -1,13 +1,11 @@
 import discord
 from discord.ext import commands
-from dotenv import load_dotenv
 from env import EnvType, getVariable
 import extensions
 
 class FishBot(commands.Bot):
     def __init__(self):
         super().__init__(command_prefix=".")
-        load_dotenv()      
 
     async def on_ready(self):
         # Bot should only be in one server anyways
