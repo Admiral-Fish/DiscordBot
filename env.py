@@ -12,6 +12,7 @@ def getVariable(env, type=EnvType.STRING):
     val = os.environ.get(env)
 
     if val is None:
+        print(f"Environment variable {env} does not exist")
         sys.exit()
 
     if type == EnvType.STRING:

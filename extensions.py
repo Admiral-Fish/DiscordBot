@@ -1,0 +1,4 @@
+cogs = [
+    "admin",
+    "tools"
+]
