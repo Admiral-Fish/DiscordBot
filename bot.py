@@ -40,17 +40,18 @@ class FishBot(commands.Bot):
         if message.author == self.user:
             return
 
-        if any(message.channel.id == channel for channel in self.filter_ignore_channels):
-            return
-
-        words = message.content.split(" ")
-        if any(word in self.filter_words for word in words):
-            await message.delete()
-            await self.log_channel.send(f"{message.author.mention} was censored in {message.channel.mention} for saying {message.content}")
-            return
-
+        # Remove random messages from welcome channel
         if message.channel == self.member_channel and message != ".member":
             await message.delete()
+            return
+
+        # Only attempt to filter if in channels that need to be filtered
+        if not any(message.channel.id == channel for channel in self.filter_ignore_channels):
+            words = message.content.split(" ")
+            if any(word in self.filter_words for word in words):
+                await message.delete()
+                await self.log_channel.send(f"{message.author.mention} was censored in {message.channel.mention} for saying {message.content}")
+                return        
 
         ctx = await self.get_context(message)
         await self.invoke(ctx)
