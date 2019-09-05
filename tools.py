@@ -28,7 +28,7 @@ class Tools(commands.Cog):
 
     @commands.command()
     async def installpcalc(self, ctx):
-        embed = getEmbed("Guide to Installing PCalc", "https://pokemonrng.com/guides/tools/en/How%20to%20Install%20PCalc.md")
+        embed = getEmbed("Guide to Installing PCalc", "https://pokemonrng.com/guides/tools/en/How%20to%20Install%20PCalc/")
         await ctx.channel.send(embed=embed)
         await self.bot.log_channel.send(f"{ctx.author.mention} ran command .installpcalc in {ctx.channel.mention}")
 
@@ -49,7 +49,7 @@ class Tools(commands.Cog):
                 if resp.status != 200:
                     return await ctx.channel.send('Could not download file...')
                 data = io.BytesIO(await resp.read())
-                await ctx.channel.send(content=f"Here's the latest PCalc-usum", file=discord.File(data, f"pcalc-{build}.zip"))                
+                await ctx.channel.send(content=f"Here's the latest PCalc-{build}", file=discord.File(data, f"pcalc-{build}.zip"))                
                 await self.bot.log_channel.send(f"{ctx.author.mention} ran command .pcalc in {ctx.channel.mention}")
 
     @commands.command()
