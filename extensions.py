@@ -1,6 +1,6 @@
 cogs = [
-    "admin",
-    "botutil",
-    "member",
-    "tools"
+    "cogs.admin",
+    "cogs.botutil",
+    "cogs.member",
+    "cogs.tools"
 ]
