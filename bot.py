@@ -39,7 +39,7 @@ class FishBot(commands.Bot):
             return
 
         # Remove random messages from welcome channel
-        if message.channel == self.member_channel and message != ".member":
+        if message.channel == self.member_channel and message.content != ".member":
             await message.delete()
             return
 
