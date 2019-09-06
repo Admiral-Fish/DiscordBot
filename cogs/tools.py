@@ -32,14 +32,16 @@ class Tools(commands.Cog):
         await self.bot.log_channel.send(f"{ctx.author.mention} ran command .installpcalc in {ctx.channel.mention}")
         
     @commands.command()
-    async def gen3lua(self, ctx):
+    async def lua(self, ctx):
         message = "\n".join([
-        "https://pokerng.forumcommunity.net/?t=56443955&p=396434940",
+        "Gen 3: https://pokerng.forumcommunity.net/?t=56443955&p=396434940",
+        "\t Gen 4: https://pokerng.forumcommunity.net/?t=56443955&p=396434991",
+        "\t Gen 5: https://pokerng.forumcommunity.net/?t=56443955&p=396435011",
         "\n Password is `allyouneedisnoob`" 
         ])
-        embed = self.getEmbed("Gen 3 Lua Scripts", message)
+        embed = self.getEmbed("Lua Scripts", message)
         await ctx.send(embed=embed)
-        await self.bot.log_channel.send(f"{ctx.author.mention} ran command .gen3lua in {ctx.channel.mention}")
+        await self.bot.log_channel.send(f"{ctx.author.mention} ran command .lua in {ctx.channel.mention}")
 
     @commands.command()
     async def pcalc(self, ctx, build):
