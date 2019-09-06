@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-import extensions
 
 class Admin(commands.Cog):
     def __init__(self, bot):
