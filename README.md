@@ -1,6 +1,7 @@
 # DiscordBot
 
 DiscordBot for the PokemonRNG server.
+
 [![PokemonRNG](https://discordapp.com/assets/07dca80a102d4149e9736d4b162cff6f.ico)](https://discord.gg/d8JuAvg)
 
 ## .env file setup
