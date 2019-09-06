@@ -30,6 +30,16 @@ class Tools(commands.Cog):
         embed = self.getEmbed("Guide to Installing PCalc", "https://pokemonrng.com/guides/tools/en/How%20to%20Install%20PCalc/")
         await ctx.send(embed=embed)
         await self.bot.log_channel.send(f"{ctx.author.mention} ran command .installpcalc in {ctx.channel.mention}")
+        
+    @commands.command()
+    async def gen3lua(self, ctx):
+        message = "\n".join([
+        "https://pokerng.forumcommunity.net/?t=56443955&p=396434940",
+        "\n Password is `allyouneedisnoob`" 
+        ])
+        embed = self.getEmbed("Gen 3 Lua Scripts", message)
+        await ctx.send(embed=embed)
+        await self.bot.log_channel.send(f"{ctx.author.mention} ran command .gen3lua in {ctx.channel.mention}")
 
     @commands.command()
     async def pcalc(self, ctx, build):
