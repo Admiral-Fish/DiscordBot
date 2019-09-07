@@ -19,7 +19,7 @@ class Admin(commands.Cog):
 
     @commands.command(hidden=True)
     @commands.has_permissions(manage_messages=True)
-    async def purge(self, ctx, amount):
+    async def purge(self, ctx, amount: int):
         await ctx.message.delete()
         await ctx.channel.purge(limit=amount)
         await self.bot.log_channel.send(f"{ctx.author.mentioned} purged {amount} message(s) from {ctx.channel.mention}")
