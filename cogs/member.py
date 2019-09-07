@@ -11,7 +11,7 @@ class Member(commands.Cog):
             return
 
         await ctx.message.delete()
-        await ctx.author.add_roles(self.bot.member_role)     
+        await ctx.author.add_roles(self.bot.member_role)
         await self.bot.log_channel.send(f"Added member role to {ctx.author.mention} | {ctx.author} | {ctx.author.id}")
 
 def setup(bot):
