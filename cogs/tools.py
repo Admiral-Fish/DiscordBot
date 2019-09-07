@@ -33,7 +33,7 @@ class Tools(commands.Cog):
         await self.bot.log_channel.send(f"{ctx.author.mention} ran command `.installpcalc` in {ctx.channel.mention}")
         
     @commands.command()
-    async def lua(self, ctx, gen):
+    async def lua(self, ctx, gen: int):
         if gen == 3:
             message = "Gen 3: https://pokerng.forumcommunity.net/?t=56443955&p=396434940"
         elif gen == 4:
