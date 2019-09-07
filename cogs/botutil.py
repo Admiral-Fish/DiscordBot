@@ -13,6 +13,8 @@ class BotUtil(commands.Cog):
             await self.bot.log_channel.send(f"`{cog}` reloaded successfully", delete_after=5)
         except Exception as e:
             await self.bot.log_channel.send(f"Failed to reload addon: {cog} due to `{type(e).__name__}: {e}`", delete_after=5)
+        await self.bot.log_channel.send(f"{ctx.author.mention} ran command `.reload {cog}` in {ctx.channel.mention}")
+
 
     @commands.command(hidden=True)
     @commands.has_role("Mods")
@@ -22,6 +24,7 @@ class BotUtil(commands.Cog):
             await self.bot.log_channel.send(f"`{cog}` loaded successfully", delete_after=5)
         except Exception as e:
             await self.bot.log_channel.send(f"Failed to load addon: {cog} due to `{type(e).__name__}: {e}`", delete_after=5)
+        await self.bot.log_channel.send(f"{ctx.author.mention} ran command `.load {cog}` in {ctx.channel.mention}")
 
     @commands.command(hidden=True)
     @commands.has_role("Mods")
@@ -31,6 +34,7 @@ class BotUtil(commands.Cog):
             await self.bot.log_channel.send(f"`{cog}` unloaded successfully", delete_after=5)
         except Exception as e:
             await self.bot.log_channel.send(f"Failed to unload addon: {cog} due to `{type(e).__name__}: {e}`", delete_after=5)
+        await self.bot.log_channel.send(f"{ctx.author.mention} ran command `.unload {cog}` in {ctx.channel.mention}")
 
 def setup(bot):
     bot.add_cog(BotUtil(bot))
