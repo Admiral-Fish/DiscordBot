@@ -5,7 +5,7 @@ class BotUtil(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(hidden=True)
     @commands.has_role("Mods")
     async def reload(self, ctx, cog):
         try:
@@ -14,7 +14,7 @@ class BotUtil(commands.Cog):
         except Exception as e:
             await self.bot.log_channel.send(f"Failed to reload addon: {cog} due to `{type(e).__name__}: {e}`", delete_after=5)
 
-    @commands.command()
+    @commands.command(hidden=True)
     @commands.has_role("Mods")
     async def load(self, ctx, cog):
         try:
@@ -23,7 +23,7 @@ class BotUtil(commands.Cog):
         except Exception as e:
             await self.bot.log_channel.send(f"Failed to load addon: {cog} due to `{type(e).__name__}: {e}`", delete_after=5)
 
-    @commands.command()
+    @commands.command(hidden=True)
     @commands.has_role("Mods")
     async def unload(self, ctx, cog):
         try:
