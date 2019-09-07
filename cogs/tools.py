@@ -45,7 +45,7 @@ class Tools(commands.Cog):
 
         message += "\n\nPassword is `allyouneedisnoob`"
         
-        embed = self.getEmbed("Gen {gen} Lua Scripts", message)
+        embed = self.getEmbed(f"Gen {gen} Lua Scripts", message)
         await ctx.send(embed=embed)
         await self.bot.log_channel.send(f"{ctx.author.mention} ran command `.lua {gen}` in {ctx.channel.mention}")
 
