@@ -23,16 +23,19 @@ class FishBot(commands.Bot):
             try:
                 self.load_extension(cog)
             except Exception as e:
-                await self.log_channel.send(f"Failed to load addon: {cog} due to `{type(e).__name__}: {e}`\n")
-                print(f"Failed to load addon: {cog} due to `{type(e).__name__}: {e}`\n")
+                await self.log_channel.send(f"Failed to load addon: {cog} due to `{type(e).__name__}: {e}`", delete_after=5)
 
-        await self.log_channel.send("Bot finished loading")
+        await self.log_channel.send("Bot finished loading", delete_after=5)
 
     async def on_member_join(self, member):
-        await self.log_channel.send(f"Member joined {member}")
+        embed = discord.Embed(title="Member joined", color=0x3498db)
+        embed.add_field(name="User", value=member)
+        await self.log_channel.send(embed=embed)
 
     async def on_member_remove(self, member):
-        await self.log_channel.send(f"Member left {member}")
+        embed = discord.Embed(title="Member left", color=0x3498db)
+        embed.add_field(name="User", value=member)
+        await self.log_channel.send(embed=embed)
 
     async def on_message(self, message):
         if message.author == self.user:
@@ -47,8 +50,13 @@ class FishBot(commands.Bot):
         if not any(message.channel.id == channel for channel in self.filter_ignore_channels):
             words = message.content.split(" ")
             if any(word.lower() in self.filter_words for word in words):
-                await message.delete()
-                await self.log_channel.send(f"{message.author.mention} was censored in {message.channel.mention} for saying {message.content}")
+                await message.delete()   
+                             
+                embed = discord.Embed(title="Censored message", color=0x3498db)
+                embed.add_field(name="Author", value=message.author.mention)
+                embed.add_field(name="Channel", value=message.channel.mention)
+                embed.add_field(name="Message", value=message.content)
+                await self.log_channel.send(embed=embed)
                 return        
 
         ctx = await self.get_context(message)

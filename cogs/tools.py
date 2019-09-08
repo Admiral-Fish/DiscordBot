@@ -22,15 +22,26 @@ class Tools(commands.Cog):
             await ctx.send("Invalid tool. Valid tools are `3dsrngtool`, `pokefinder`, `rngeporter`")
             return
 
-        embed = self.getEmbed(title, message)
+        embed = discord.Embed(title=title, description=message, color=0x3498db)
         await ctx.send(embed=embed)
-        await self.bot.log_channel.send(f"{ctx.author.mention} ran command `.grabtool {tool}` in {ctx.channel.mention}")
+
+        embed = discord.Embed(title="Command used", color=0x3498db)
+        embed.add_field(name="Command", value=".grabtool")
+        embed.add_field(name="Argument", value=tool)
+        embed.add_field(name="User", value=ctx.author.mention)
+        embed.add_field(name="Channel", value=ctx.channel.mention)
+        await self.bot.log_channel.send(embed=embed)
 
     @commands.command()
     async def installpcalc(self, ctx):
-        embed = self.getEmbed("Guide to Installing PCalc", "https://pokemonrng.com/guides/tools/en/How%20to%20Install%20PCalc/")
+        embed = discord.Embed(title="Guide to Installing PCalc", description="https://pokemonrng.com/guides/tools/en/How%20to%20Install%20PCalc/", color=0x3498db)
         await ctx.send(embed=embed)
-        await self.bot.log_channel.send(f"{ctx.author.mention} ran command `.installpcalc` in {ctx.channel.mention}")
+
+        embed = discord.Embed(title="Command used", color=0x3498db)
+        embed.add_field(name="Command", value=".installpcalc")
+        embed.add_field(name="User", value=ctx.author.mention)
+        embed.add_field(name="Channel", value=ctx.channel.mention)
+        await self.bot.log_channel.send(embed=embed)
         
     @commands.command()
     async def lua(self, ctx, gen: int):
@@ -45,19 +56,25 @@ class Tools(commands.Cog):
 
         message += "\n\nPassword is `allyouneedisnoob`"
         
-        embed = self.getEmbed(f"Gen {gen} Lua Scripts", message)
+        embed = discord.Embed(title=f"Gen {gen} Lua Scripts", description=message, color=0x3498db)
         await ctx.send(embed=embed)
-        await self.bot.log_channel.send(f"{ctx.author.mention} ran command `.lua {gen}` in {ctx.channel.mention}")
+        
+        embed = discord.Embed(title="Command used", color=0x3498db)
+        embed.add_field(name="Command", value=".lua")
+        embed.add_field(name="Argument", value=str(gen))
+        embed.add_field(name="User", value=ctx.author.mention)
+        embed.add_field(name="Channel", value=ctx.channel.mention)
+        await self.bot.log_channel.send(embed=embed)
 
     @commands.command()
     async def pcalc(self, ctx, build):
         if ctx.channel.id not in self.bot.build_channels:
-            embed = self.getEmbed("Uh oh!", "Please do not ask for PCalc in this channel.")
+            embed = discord.Embed(title="Uh oh!", description="Please do not ask for PCalc in this channel.", color=0x3498db)
             await ctx.send(embed=embed)
             return
 
         if build not in self.bot.build_list:
-            embed = self.getEmbed("Uh oh!", "Build not found! Please try: `usum`, `sm`, `oras`, `xy`, `tport`")
+            embed = discord.Embed(title="Uh oh!", description="Build not found! Please try: `usum`, `sm`, `oras`, `xy`, `tport`", color=0x3498db)
             await ctx.send(embed=embed)
             return
 
@@ -66,8 +83,14 @@ class Tools(commands.Cog):
                 if resp.status != 200:
                     return await ctx.channel.send('Could not download file...')
                 data = io.BytesIO(await resp.read())
-                await ctx.send(content=f"Here's the latest PCalc-{build}", file=discord.File(data, f"pcalc-{build}.zip"))                
-                await self.bot.log_channel.send(f"{ctx.author.mention} ran command `.pcalc {build}` in {ctx.channel.mention}")
+                await ctx.send(content=f"Here's the latest PCalc-{build}", file=discord.File(data, f"pcalc-{build}.zip"))
+                           
+                embed = discord.Embed(title="Command used", color=0x3498db)
+                embed.add_field(name="Command", value=".pcalc")
+                embed.add_field(name="Argument", value=build)
+                embed.add_field(name="User", value=ctx.author.mention)
+                embed.add_field(name="Channel", value=ctx.channel.mention)
+                await self.bot.log_channel.send(embed=embed)
 
     @commands.command()
     async def fixntr(self, ctx):
@@ -81,13 +104,14 @@ class Tools(commands.Cog):
         "\n Reinstall [BootNTR Selector](https://github.com/Nanquitas/BootNTR/releases)." 
         ])
 
-        embed = self.getEmbed("Fixing NTR", message)
-        await ctx.send(embed=embed)        
-        await self.bot.log_channel.send(f"{ctx.author.mention} ran command `.fixntr` in {ctx.channel.mention}")
-
-    def getEmbed(self, title, message):
-        embed = discord.Embed(title=title, description=message, color=0x3498db)
-        return embed
+        embed = discord.Embed(title="Fixing NTR", description=message, color=0x3498db)
+        await ctx.send(embed=embed)
+        
+        embed = discord.Embed(title="Command used", color=0x3498db)
+        embed.add_field(name="Command", value=".fixntr")
+        embed.add_field(name="User", value=ctx.author.mention)
+        embed.add_field(name="Channel", value=ctx.channel.mention)
+        await self.bot.log_channel.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Tools(bot))
