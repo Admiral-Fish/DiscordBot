@@ -70,7 +70,7 @@ class FishBot(commands.Bot):
 
     async def logAction(self, title, fields):
         embed = discord.Embed(title=title, color=0x3498db)
-        for name, value in fields:
+        for name, value in fields.items():
             embed.add_field(name=name, value=value)
         await self.log_channel.send(embed=embed)
 
