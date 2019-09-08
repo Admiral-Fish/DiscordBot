@@ -46,8 +46,9 @@ class FishBot(commands.Bot):
 
         # Only attempt to filter if in channels that need to be filtered
         if not any(message.channel.id == channel for channel in self.filter_ignore_channels):
-            words = message.content.split(" ")
-            if any(word.lower() in self.filter_words for word in words):
+            content = message.content.lower()
+
+            if any(filter_word in content for filter_word in self.filter_words):
                 await message.delete()
 
                 fields = { "Author":message.author.mention, "Channel":message.channel.mention, "Message":message.content }
