@@ -13,11 +13,8 @@ class Member(commands.Cog):
         await ctx.message.delete()
         await ctx.author.add_roles(self.bot.member_role)
 
-        embed = discord.Embed(title="New Member", color=0x3498db)
-        embed.add_field(name="Mention", value=ctx.author.mention)
-        embed.add_field(name="Name", value=ctx.author)
-        embed.add_field(name="ID", value=ctx.author.id)
-        await self.bot.log_channel.send(embed=embed)
+        fields = { "Mention":ctx.author.mention, "Name":ctx.author, "ID":ctx.author.id }
+        await self.bot.logAction("New Member", fields)
 
 def setup(bot):
     bot.add_cog(Member(bot))

@@ -28,14 +28,12 @@ class FishBot(commands.Bot):
         await self.log_channel.send("Bot finished loading", delete_after=5)
 
     async def on_member_join(self, member):
-        embed = discord.Embed(title="Member joined", color=0x3498db)
-        embed.add_field(name="User", value=member)
-        await self.log_channel.send(embed=embed)
+        fields = { "User":member }
+        await self.logAction("Member Joined", fields)
 
     async def on_member_remove(self, member):
-        embed = discord.Embed(title="Member left", color=0x3498db)
-        embed.add_field(name="User", value=member)
-        await self.log_channel.send(embed=embed)
+        fields = { "User":member }
+        await self.logAction("Member Left", fields)
 
     async def on_message(self, message):
         if message.author == self.user:
@@ -50,13 +48,10 @@ class FishBot(commands.Bot):
         if not any(message.channel.id == channel for channel in self.filter_ignore_channels):
             words = message.content.split(" ")
             if any(word.lower() in self.filter_words for word in words):
-                await message.delete()   
-                             
-                embed = discord.Embed(title="Censored message", color=0x3498db)
-                embed.add_field(name="Author", value=message.author.mention)
-                embed.add_field(name="Channel", value=message.channel.mention)
-                embed.add_field(name="Message", value=message.content)
-                await self.log_channel.send(embed=embed)
+                await message.delete()
+
+                fields = { "Author":message.author.mention, "Channel":message.channel.mention, "Message":message.content }
+                await self.logAction("Censored Message", fields)
                 return        
 
         ctx = await self.get_context(message)
@@ -72,6 +67,12 @@ class FishBot(commands.Bot):
             await ctx.send("A bad argument was provided, please try again.")
         elif isinstance(error, discord.ext.commands.errors.MissingPermissions) or isinstance(error, discord.ext.commands.errors.CheckFailure):
             await ctx.send("You don't have permission to use this command.")
+
+    async def logAction(self, title, fields):
+        embed = discord.Embed(title=title, color=0x3498db)
+        for name, value in fields:
+            embed.add_field(name=name, value=value)
+        await self.log_channel.send(embed=embed)
 
     def run(self):
         super().run(getVariable("DISCORD_TOKEN"), reconnect=True)

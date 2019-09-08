@@ -13,13 +13,9 @@ class BotUtil(commands.Cog):
             await self.bot.log_channel.send(f"`{cog}` reloaded successfully", delete_after=5)
         except Exception as e:
             await self.bot.log_channel.send(f"Failed to reload addon: {cog} due to `{type(e).__name__}: {e}`", delete_after=5)
-        
-        embed = discord.Embed(title="Command used", color=0x3498db)
-        embed.add_field(name="Command", value=".reload")
-        embed.add_field(name="Argument", value=cog)
-        embed.add_field(name="User", value=ctx.author.mention)
-        embed.add_field(name="Channel", value=ctx.channel.mention)
-        await self.bot.log_channel.send(embed=embed)
+
+        fields = { "Command":".reload", "Argument":cog, "User":ctx.author.mention, "Channel":ctx.channel.mention }
+        await self.bot.logAction("Command Used", fields)
 
 
     @commands.command(hidden=True)
@@ -31,12 +27,8 @@ class BotUtil(commands.Cog):
         except Exception as e:
             await self.bot.log_channel.send(f"Failed to load addon: {cog} due to `{type(e).__name__}: {e}`", delete_after=5)
 
-        embed = discord.Embed(title="Command used", color=0x3498db)
-        embed.add_field(name="Command", value=".load")
-        embed.add_field(name="Argument", value=cog)
-        embed.add_field(name="User", value=ctx.author.mention)
-        embed.add_field(name="Channel", value=ctx.channel.mention)
-        await self.bot.log_channel.send(embed=embed)
+        fields = { "Command":".load", "Argument":cog, "User":ctx.author.mention, "Channel":ctx.channel.mention }
+        await self.bot.logAction("Command Used", fields)
 
     @commands.command(hidden=True)
     @commands.has_role("Mods")
@@ -47,12 +39,8 @@ class BotUtil(commands.Cog):
         except Exception as e:
             await self.bot.log_channel.send(f"Failed to unload addon: {cog} due to `{type(e).__name__}: {e}`", delete_after=5)
 
-        embed = discord.Embed(title="Command used", color=0x3498db)
-        embed.add_field(name="Command", value=".unload")
-        embed.add_field(name="Argument", value=cog)
-        embed.add_field(name="User", value=ctx.author.mention)
-        embed.add_field(name="Channel", value=ctx.channel.mention)
-        await self.bot.log_channel.send(embed=embed)
+        fields = { "Command":".unload", "Argument":cog, "User":ctx.author.mention, "Channel":ctx.channel.mention }
+        await self.bot.logAction("Command Used", fields)
 
 def setup(bot):
     bot.add_cog(BotUtil(bot))

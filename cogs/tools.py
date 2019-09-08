@@ -25,23 +25,16 @@ class Tools(commands.Cog):
         embed = discord.Embed(title=title, description=message, color=0x3498db)
         await ctx.send(embed=embed)
 
-        embed = discord.Embed(title="Command used", color=0x3498db)
-        embed.add_field(name="Command", value=".grabtool")
-        embed.add_field(name="Argument", value=tool)
-        embed.add_field(name="User", value=ctx.author.mention)
-        embed.add_field(name="Channel", value=ctx.channel.mention)
-        await self.bot.log_channel.send(embed=embed)
+        fields = { "Command":".grabtool", "Argument":tool, "User":ctx.author.mention, "Channel":ctx.channel.mention }
+        await self.bot.logAction("Command Used", fields)
 
     @commands.command()
     async def installpcalc(self, ctx):
         embed = discord.Embed(title="Guide to Installing PCalc", description="https://pokemonrng.com/guides/tools/en/How%20to%20Install%20PCalc/", color=0x3498db)
         await ctx.send(embed=embed)
 
-        embed = discord.Embed(title="Command used", color=0x3498db)
-        embed.add_field(name="Command", value=".installpcalc")
-        embed.add_field(name="User", value=ctx.author.mention)
-        embed.add_field(name="Channel", value=ctx.channel.mention)
-        await self.bot.log_channel.send(embed=embed)
+        fields = { "Command":".installpcalc", "User":ctx.author.mention, "Channel":ctx.channel.mention }
+        await self.bot.logAction("Command Used", fields)
         
     @commands.command()
     async def lua(self, ctx, gen: int):
@@ -53,18 +46,13 @@ class Tools(commands.Cog):
             message = "Gen 5: https://pokerng.forumcommunity.net/?t=56443955&p=396435011"
         else:
             await ctx.send("Invalid gen. Valid gens are `3`, `4`, or `5`.")
-
         message += "\n\nPassword is `allyouneedisnoob`"
         
         embed = discord.Embed(title=f"Gen {gen} Lua Scripts", description=message, color=0x3498db)
         await ctx.send(embed=embed)
-        
-        embed = discord.Embed(title="Command used", color=0x3498db)
-        embed.add_field(name="Command", value=".lua")
-        embed.add_field(name="Argument", value=str(gen))
-        embed.add_field(name="User", value=ctx.author.mention)
-        embed.add_field(name="Channel", value=ctx.channel.mention)
-        await self.bot.log_channel.send(embed=embed)
+
+        fields = { "Command":".lua", "Argument":str(gen), "User":ctx.author.mention, "Channel":ctx.channel.mention }
+        await self.bot.logAction("Command Used", fields)
 
     @commands.command()
     async def pcalc(self, ctx, build):
@@ -84,13 +72,9 @@ class Tools(commands.Cog):
                     return await ctx.channel.send('Could not download file...')
                 data = io.BytesIO(await resp.read())
                 await ctx.send(content=f"Here's the latest PCalc-{build}", file=discord.File(data, f"pcalc-{build}.zip"))
-                           
-                embed = discord.Embed(title="Command used", color=0x3498db)
-                embed.add_field(name="Command", value=".pcalc")
-                embed.add_field(name="Argument", value=build)
-                embed.add_field(name="User", value=ctx.author.mention)
-                embed.add_field(name="Channel", value=ctx.channel.mention)
-                await self.bot.log_channel.send(embed=embed)
+
+                fields = { "Command":".pcalc", "Argument":build, "User":ctx.author.mention, "Channel":ctx.channel.mention }
+                await self.bot.logAction("Command Used", fields)
 
     @commands.command()
     async def fixntr(self, ctx):
@@ -106,12 +90,9 @@ class Tools(commands.Cog):
 
         embed = discord.Embed(title="Fixing NTR", description=message, color=0x3498db)
         await ctx.send(embed=embed)
-        
-        embed = discord.Embed(title="Command used", color=0x3498db)
-        embed.add_field(name="Command", value=".fixntr")
-        embed.add_field(name="User", value=ctx.author.mention)
-        embed.add_field(name="Channel", value=ctx.channel.mention)
-        await self.bot.log_channel.send(embed=embed)
+
+        fields = { "Command":".fixntr", "User":ctx.author.mention, "Channel":ctx.channel.mention }
+        await self.bot.logAction("Command Used", fields)
 
 def setup(bot):
     bot.add_cog(Tools(bot))
