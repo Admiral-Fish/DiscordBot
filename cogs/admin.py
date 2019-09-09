@@ -6,7 +6,7 @@ class Admin(commands.Cog):
         self.bot = bot
 
     @commands.command(hidden=True)
-    @commands.has_role(285270611583041537)
+    @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, user: discord.Member, *, reason):
         await user.kick(reason=reason)
 
@@ -14,7 +14,7 @@ class Admin(commands.Cog):
         await self.bot.logAction("Kicked User", fields)
 
     @commands.command(hidden=True)
-    @commands.has_role(285270611583041537)
+    @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, user: discord.Member, reason):
         await user.ban(reason=reason)
 
