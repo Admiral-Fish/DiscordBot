@@ -16,6 +16,7 @@ class BotUtil(commands.Cog):
 
         fields = { "Command":".reload", "Argument":cog, "User":ctx.author.mention, "Channel":ctx.channel.mention }
         await self.bot.logAction("Command Used", fields)
+        await ctx.message.delete(delay=5)
 
 
     @commands.command(hidden=True)
@@ -29,6 +30,7 @@ class BotUtil(commands.Cog):
 
         fields = { "Command":".load", "Argument":cog, "User":ctx.author.mention, "Channel":ctx.channel.mention }
         await self.bot.logAction("Command Used", fields)
+        await ctx.message.delete(delay=5)
 
     @commands.command(hidden=True)
     @commands.has_role(285270611583041537)
@@ -41,6 +43,7 @@ class BotUtil(commands.Cog):
 
         fields = { "Command":".unload", "Argument":cog, "User":ctx.author.mention, "Channel":ctx.channel.mention }
         await self.bot.logAction("Command Used", fields)
+        await ctx.message.delete(delay=5)
 
 def setup(bot):
     bot.add_cog(BotUtil(bot))
