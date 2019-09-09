@@ -6,7 +6,7 @@ class Admin(commands.Cog):
         self.bot = bot
 
     @commands.command(hidden=True)
-    @commands.has_permissions(kick_user=True)
+    @commands.has_role(285270611583041537)
     async def kick(self, ctx, user: discord.Member, *, reason):
         await user.kick(reason=reason)
 
@@ -14,7 +14,7 @@ class Admin(commands.Cog):
         await self.bot.logAction("Kicked User", fields)
 
     @commands.command(hidden=True)
-    @commands.has_permissions(ban_user=True)
+    @commands.has_role(285270611583041537)
     async def ban(self, ctx, user: discord.Member, reason):
         await user.ban(reason=reason)
 
@@ -22,7 +22,7 @@ class Admin(commands.Cog):
         await self.bot.logAction("Banned User", fields)
 
     @commands.command(hidden=True)
-    @commands.has_permissions(manage_messages=True)
+    @commands.has_role(285270611583041537)
     async def purge(self, ctx, amount: int):
         await ctx.message.delete()
         await ctx.channel.purge(limit=amount)

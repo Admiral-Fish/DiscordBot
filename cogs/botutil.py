@@ -6,7 +6,7 @@ class BotUtil(commands.Cog):
         self.bot = bot
 
     @commands.command(hidden=True)
-    @commands.has_role("Mods")
+    @commands.has_role(285270611583041537)
     async def reload(self, ctx, cog):
         try:
             self.bot.reload_extension(cog)
@@ -19,7 +19,7 @@ class BotUtil(commands.Cog):
 
 
     @commands.command(hidden=True)
-    @commands.has_role("Mods")
+    @commands.has_role(285270611583041537)
     async def load(self, ctx, cog):
         try:
             self.bot.load_extension(cog)
@@ -31,7 +31,7 @@ class BotUtil(commands.Cog):
         await self.bot.logAction("Command Used", fields)
 
     @commands.command(hidden=True)
-    @commands.has_role("Mods")
+    @commands.has_role(285270611583041537)
     async def unload(self, ctx, cog):
         try:
             self.bot.unload_extension(cog)
