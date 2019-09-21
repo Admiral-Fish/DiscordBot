@@ -45,5 +45,10 @@ class BotUtil(commands.Cog):
         await self.bot.logAction("Command Used", fields)
         await ctx.message.delete(delay=5)
 
+    @commands.command(hidden=True)
+    @commands.has_role(285270611583041537)
+    async def ping(self, ctx):
+        await ctx.send("pong")
+
 def setup(bot):
     bot.add_cog(BotUtil(bot))
