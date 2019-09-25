@@ -50,9 +50,6 @@ class FishBot(commands.Bot):
 
             if any(filter_word in content for filter_word in self.filter_words):
                 await message.delete()
-
-                fields = { "Author":message.author.mention, "Channel":message.channel.mention, "Message":message.content }
-                await self.logAction("Censored Message", fields)
                 return        
 
         ctx = await self.get_context(message)
@@ -68,6 +65,10 @@ class FishBot(commands.Bot):
             await ctx.send("A bad argument was provided, please try again.")
         elif isinstance(error, discord.ext.commands.errors.MissingPermissions) or isinstance(error, discord.ext.commands.errors.CheckFailure):
             await ctx.send("You don't have permission to use this command.")
+
+    async def on_message_delete(self, message):
+        fields = { "Author":message.author.mention, "Channel":message.channel.mention, "Message":message.content }
+        await self.logAction("Deleted Message", fields)
 
     async def logAction(self, title, fields):
         embed = discord.Embed(title=title, color=0x3498db)
