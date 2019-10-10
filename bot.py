@@ -49,6 +49,7 @@ class FishBot(commands.Bot):
             content = message.content.lower()
 
             if any(filter_word in content for filter_word in self.filter_words):
+                await message.channel.send(f"{message.author.mention}, your message has been filtered. Please review the rules before posting again")
                 await message.delete()
                 return        
 
