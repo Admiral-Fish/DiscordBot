@@ -23,9 +23,9 @@ class FishBot(commands.Bot):
             try:
                 self.load_extension(cog)
             except Exception as e:
-                await self.log_channel.send(f"Failed to load addon: {cog} due to `{type(e).__name__}: {e}`", delete_after=5)
+                await self.log_channel.send(f"Failed to load addon: {cog} due to `{type(e).__name__}: {e}`")
 
-        await self.log_channel.send("Bot finished loading", delete_after=5)
+        await self.log_channel.send("Bot finished loading")
 
     async def on_member_join(self, member):
         fields = { "User":member }
@@ -69,7 +69,11 @@ class FishBot(commands.Bot):
 
     async def on_message_delete(self, message):
         fields = { "Author":message.author.mention, "Channel":message.channel.mention, "Message":message.content }
-        await self.logAction("Deleted Message", fields)
+
+        try:
+            await self.logAction("Deleted Message", fields)
+        except:
+            print(fields)
 
     async def logAction(self, title, fields):
         embed = discord.Embed(title=title, color=0x3498db)
