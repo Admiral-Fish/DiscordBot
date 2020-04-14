@@ -36,7 +36,14 @@ class FishBot(commands.Bot):
         await self.logAction("Member Left", fields)
 
     async def on_message(self, message):
+        # Ignore bot messages
         if message.author == self.user:
+            return
+
+        # Check if message is in DM
+        if message.guild is None:
+            fields = { "Author":message.author.mention, "Message":message.content }
+            await self.logAction("Bot DM", fields)
             return
 
         # Remove random messages from welcome channel
@@ -69,11 +76,7 @@ class FishBot(commands.Bot):
 
     async def on_message_delete(self, message):
         fields = { "Author":message.author.mention, "Channel":message.channel.mention, "Message":message.content }
-
-        try:
-            await self.logAction("Deleted Message", fields)
-        except:
-            print(fields)
+        await self.logAction("Deleted Message", fields)
 
     async def logAction(self, title, fields):
         embed = discord.Embed(title=title, color=0x3498db)
