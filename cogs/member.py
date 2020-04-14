@@ -5,7 +5,7 @@ class Member(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(hidden=True)
+    @commands.command()
     async def member(self, ctx):
         if ctx.channel != self.bot.member_channel:
             return
