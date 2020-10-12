@@ -61,10 +61,9 @@ class FishBot(commands.Bot):
                 return
 
         # Got em
-        if message.content == "got em":
-            if discord.utils.find(lambda r: r.name == 'Member', message.server.roles) in message.user.roles:
-                await message.channel.send("bois")
-                return
+        if message.content == "got em":            
+            await message.channel.send("bois")
+            return
 
         ctx = await self.get_context(message)
         await self.invoke(ctx)
