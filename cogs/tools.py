@@ -18,8 +18,20 @@ class Tools(commands.Cog):
         elif tool == "rngreporter":
             title = "RNG Reporter Releases"
             message = "https://github.com/Admiral-Fish/RNGReporter/releases"
+        elif tool == "capturesight":
+            title = "CaptureSight"
+            message = "https://github.com/zaksabeast/CaptureSight/releases"
+        elif tool == "raidfinder"
+            title = "RaidFinder"
+            message = "https://github.com/Admiral-Fish/RaidFinder/releases"
+        elif tool == "3dstimefinder"
+            title = "3DSTimeFinder"
+            message = "https://github.com/Admiral-Fish/3DSTimeFinder/releases"
+        elif tool == "citrarng"
+            title = "CitraRNG"
+            message = "https://github.com/Admiral-Fish/CitraRNG/releases"
         else:
-            await ctx.send("Invalid tool. Valid tools are `3dsrngtool`, `pokefinder`, `rngeporter`")
+            await ctx.send("Invalid tool. Valid tools are `3dsrngtool`, `pokefinder`, `rngeporter`, `capturesight`, `raidfinder`, `3dstimefinder`, `citrarng`")
             return
 
         embed = discord.Embed(title=title, description=message, color=0x3498db)
