@@ -42,7 +42,7 @@ class Tools(commands.Cog):
 
     @commands.command()
     async def installpcalc(self, ctx):
-        embed = discord.Embed(title="Guide to Installing PCalc", description="https://pokemonrng.com/guides/tools/en/How%20to%20Install%20PCalc/", color=0x3498db)
+        embed = discord.Embed(title="Guide to Installing PCalc", description="https://www.pokemonrng.com/misc-3ds-installing-pcalc", color=0x3498db)
         await ctx.send(embed=embed)
 
         fields = { "Command":".installpcalc", "User":ctx.author.mention, "Channel":ctx.channel.mention }
