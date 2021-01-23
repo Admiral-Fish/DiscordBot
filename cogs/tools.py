@@ -21,13 +21,13 @@ class Tools(commands.Cog):
         elif tool == "capturesight":
             title = "CaptureSight"
             message = "https://github.com/zaksabeast/CaptureSight/releases"
-        elif tool == "raidfinder"
+        elif tool == "raidfinder":
             title = "RaidFinder"
             message = "https://github.com/Admiral-Fish/RaidFinder/releases"
-        elif tool == "3dstimefinder"
+        elif tool == "3dstimefinder":
             title = "3DSTimeFinder"
             message = "https://github.com/Admiral-Fish/3DSTimeFinder/releases"
-        elif tool == "citrarng"
+        elif tool == "citrarng":
             title = "CitraRNG"
             message = "https://github.com/Admiral-Fish/CitraRNG/releases"
         else:
