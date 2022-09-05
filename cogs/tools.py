@@ -1,14 +1,17 @@
-import aiohttp
-import discord
-from discord.ext import commands
 import io
 
+import aiohttp
+import discord
+from bot import FishBot
+from discord.ext import commands
+
+
 class Tools(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: FishBot):
         self.bot = bot
 
     @commands.command()
-    async def grabtool(self, ctx, tool):
+    async def grabtool(self, ctx: commands.Context, tool: str):
         if tool == "3dsrngtool":
             title = "3DSRNGTool Releases"
             message = "https://github.com/wwwwwwzx/3DSRNGTool/releases"
@@ -37,19 +40,19 @@ class Tools(commands.Cog):
         embed = discord.Embed(title=title, description=message, color=0x3498db)
         await ctx.send(embed=embed)
 
-        fields = { "Command":".grabtool", "Argument":tool, "User":ctx.author.mention, "Channel":ctx.channel.mention }
+        fields = {"Command": ".grabtool", "Argument": tool, "User": ctx.author.mention, "Channel": ctx.channel.mention}
         await self.bot.logAction("Command Used", fields)
 
     @commands.command()
-    async def installpcalc(self, ctx):
+    async def installpcalc(self, ctx: commands.Context):
         embed = discord.Embed(title="Guide to Installing PCalc", description="https://www.pokemonrng.com/misc-3ds-installing-pcalc", color=0x3498db)
         await ctx.send(embed=embed)
 
-        fields = { "Command":".installpcalc", "User":ctx.author.mention, "Channel":ctx.channel.mention }
+        fields = {"Command": ".installpcalc", "User": ctx.author.mention, "Channel": ctx.channel.mention}
         await self.bot.logAction("Command Used", fields)
-        
+
     @commands.command()
-    async def lua(self, ctx, gen: int):
+    async def lua(self, ctx: commands.Context, gen: int):
         if gen == 3:
             message = "Gen 3: https://pokerng.forumcommunity.net/?t=56443955&p=396434940"
         elif gen == 4:
@@ -59,15 +62,15 @@ class Tools(commands.Cog):
         else:
             await ctx.send("Invalid gen. Valid gens are `3`, `4`, or `5`.")
         message += "\n\nPassword is `allyouneedisnoob`"
-        
+
         embed = discord.Embed(title=f"Gen {gen} Lua Scripts", description=message, color=0x3498db)
         await ctx.send(embed=embed)
 
-        fields = { "Command":".lua", "Argument":str(gen), "User":ctx.author.mention, "Channel":ctx.channel.mention }
+        fields = {"Command": ".lua", "Argument": str(gen), "User": ctx.author.mention, "Channel": ctx.channel.mention}
         await self.bot.logAction("Command Used", fields)
 
     @commands.command()
-    async def pcalc(self, ctx, build):
+    async def pcalc(self, ctx: commands.Context, build):
         if ctx.channel.id not in self.bot.build_channels:
             embed = discord.Embed(title="Uh oh!", description="Please do not ask for PCalc in this channel.", color=0x3498db)
             await ctx.send(embed=embed)
@@ -85,26 +88,27 @@ class Tools(commands.Cog):
                 data = io.BytesIO(await resp.read())
                 await ctx.send(content=f"Here's the latest PCalc-{build}", file=discord.File(data, f"pcalc-{build}.zip"))
 
-                fields = { "Command":".pcalc", "Argument":build, "User":ctx.author.mention, "Channel":ctx.channel.mention }
+                fields = {"Command": ".pcalc", "Argument": build, "User": ctx.author.mention, "Channel": ctx.channel.mention}
                 await self.bot.logAction("Command Used", fields)
 
     @commands.command()
-    async def fixntr(self, ctx):
+    async def fixntr(self, ctx: commands.Context):
         message = "\n".join([
-        "Delete the following files from the SD card to do a clean install:",
-        "\t /ntr.o3ds/bin",
-        "\t /ntr.n3ds.bin",
-        "\t /3ds/bootntr",
-        "\t /3ds/ntr",
-        "\t /Nintendo 3DS/EBNTR",
-        "\n Reinstall [BootNTR Selector](https://github.com/Nanquitas/BootNTR/releases)." 
+            "Delete the following files from the SD card to do a clean install:",
+            "\t /ntr.o3ds/bin",
+            "\t /ntr.n3ds.bin",
+            "\t /3ds/bootntr",
+            "\t /3ds/ntr",
+            "\t /Nintendo 3DS/EBNTR",
+            "\n Reinstall [BootNTR Selector](https://github.com/Nanquitas/BootNTR/releases)."
         ])
 
         embed = discord.Embed(title="Fixing NTR", description=message, color=0x3498db)
         await ctx.send(embed=embed)
 
-        fields = { "Command":".fixntr", "User":ctx.author.mention, "Channel":ctx.channel.mention }
+        fields = {"Command": ".fixntr", "User": ctx.author.mention, "Channel": ctx.channel.mention}
         await self.bot.logAction("Command Used", fields)
 
-def setup(bot):
-    bot.add_cog(Tools(bot))
+
+async def setup(bot: FishBot):
+    await bot.add_cog(Tools(bot))

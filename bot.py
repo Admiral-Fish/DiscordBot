@@ -3,9 +3,14 @@ from discord.ext import commands
 from env import EnvType, getVariable
 import extensions
 
+
 class FishBot(commands.Bot):
     def __init__(self):
-        super().__init__(command_prefix=".")
+        intents = discord.Intents.default()
+        intents.message_content = True
+        intents.members = True
+
+        super().__init__(command_prefix=".", intents=intents)
 
     async def on_ready(self):
         # Bot should only be in one server anyways
@@ -21,28 +26,28 @@ class FishBot(commands.Bot):
 
         for cog in extensions.cogs:
             try:
-                self.load_extension(cog)
+                await self.load_extension(cog)
             except Exception as e:
                 await self.log_channel.send(f"Failed to load addon: {cog} due to `{type(e).__name__}: {e}`")
 
         await self.log_channel.send("Bot finished loading")
 
-    async def on_member_join(self, member):
-        fields = { "User":member }
+    async def on_member_join(self, member: discord.Member):
+        fields = {"User": member}
         await self.logAction("Member Joined", fields)
 
-    async def on_member_remove(self, member):
-        fields = { "User":member }
+    async def on_member_remove(self, member: discord.Member):
+        fields = {"User": member}
         await self.logAction("Member Left", fields)
 
-    async def on_message(self, message):
+    async def on_message(self, message: discord.Message):
         # Ignore bot messages
         if message.author == self.user:
             return
 
         # Check if message is in DM
         if message.guild is None:
-            fields = { "Author":message.author.mention, "Message":message.content }
+            fields = {"Author": message.author.mention, "Message": message.content}
             await self.logAction("Bot DM", fields)
             return
 
@@ -61,29 +66,29 @@ class FishBot(commands.Bot):
                 return
 
         # Got em
-        if message.content == "got em":            
+        if message.content == "got em":
             await message.channel.send("bois")
             return
 
         ctx = await self.get_context(message)
         await self.invoke(ctx)
 
-    async def on_command_error(self, ctx, error):
-        if isinstance(error, discord.ext.commands.errors.CommandNotFound):
+    async def on_command_error(self, ctx: commands.Context, error: commands.errors.CommandError):
+        if isinstance(error, commands.errors.CommandNotFound):
             pass
-        elif isinstance(error, discord.ext.commands.errors.MissingRequiredArgument):
+        elif isinstance(error, commands.errors.MissingRequiredArgument):
             await ctx.send("You are missing required arguments.")
             await ctx.send_help(ctx.command)
-        elif isinstance(error, discord.ext.commands.errors.BadArgument):
+        elif isinstance(error, commands.errors.BadArgument):
             await ctx.send("A bad argument was provided, please try again.")
-        elif isinstance(error, discord.ext.commands.errors.MissingPermissions) or isinstance(error, discord.ext.commands.errors.CheckFailure):
+        elif isinstance(error, commands.errors.MissingPermissions) or isinstance(error, commands.errors.CheckFailure):
             await ctx.send("You don't have permission to use this command.")
 
-    async def on_message_delete(self, message):
-        fields = { "Author":message.author.mention, "Channel":message.channel.mention, "Message":message.content }
+    async def on_message_delete(self, message: discord.Message):
+        fields = {"Author": message.author.mention, "Channel": message.channel.mention, "Message": message.content}
         await self.logAction("Deleted Message", fields)
 
-    async def logAction(self, title, fields):
+    async def logAction(self, title: str, fields: dict[str, str]):
         embed = discord.Embed(title=title, color=0x3498db)
         for name, value in fields.items():
             embed.add_field(name=name, value=value)

@@ -1,6 +1,7 @@
-from enum import Enum
 import os
 import sys
+from enum import Enum
+
 
 class EnvType(Enum):
     STRING = 0
@@ -8,7 +9,8 @@ class EnvType(Enum):
     STRING_LIST = 2
     INT_LIST = 3
 
-def getVariable(env, type=EnvType.STRING):
+
+def getVariable(env: str, type: EnvType):
     val = os.environ.get(env)
 
     if val is None:
@@ -22,6 +24,6 @@ def getVariable(env, type=EnvType.STRING):
     elif type == EnvType.STRING_LIST:
         return val.split(",")
     elif type == EnvType.INT_LIST:
-        return [ int(v) for v in val.split(",") ]
+        return [int(v) for v in val.split(",")]
 
     return None
